@@ -31,7 +31,7 @@ function Waveform() {
 }
 
 function AudioCard() {
-  return <div className="audio-card"><PlayButton /><div className="audio-line"><Waveform /></div><span className="audio-time">0:32</span></div>;
+  return <div className="audio-card"><PlayButton /><div className="audio-line"><Waveform /></div><span className="audio-time">2:41</span></div>;
 }
 
 function ExperienceCard() {
@@ -39,19 +39,19 @@ function ExperienceCard() {
 }
 
 function ListeningCard() {
-  return <article className="card listening-card"><TinyLabel icon="◉">What i'm listening</TinyLabel><div className="record"><div className="record-art"><strong>salad<br />days</strong><span>MAC<br />DEM ARCO</span></div><div className="record-info"><h3>Salad Days</h3><p>Mac DeMarco</p><div className="record-progress"><i /></div><div className="record-controls"><span>◀◀</span><b>Ⅱ</b><span>▶▶</span><span>⌁</span></div></div></div></article>;
+  return <article className="card listening-card"><TinyLabel icon="◉">What i'm listening</TinyLabel><div className="record"><img className="record-art" src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e0/04/eb/e004eb2b-754f-4a76-9ecc-87d4eea2a327/cover.jpg/600x600bb.jpg" alt="Salad Days album cover by Mac DeMarco" /><div className="record-info"><h3>Salad Days</h3><p>Mac DeMarco</p><div className="record-progress"><i /></div><div className="record-controls"><span>◀◀</span><b>Ⅱ</b><span>▶▶</span><span>⌁</span></div></div></div></article>;
 }
 
 function ReadingCard() {
-  return <article className="card reading-card"><TinyLabel icon="□">What i'm reading</TinyLabel><div className="reading-copy"><h3>The creative<br />coder's<br /><em>handbook</em></h3><p>small ideas, made real</p></div><div className="book-shape"><span>BUILD<br />THINGS</span></div></article>;
+  return <article className="card reading-card"><TinyLabel icon="□">What i'm reading</TinyLabel><div className="reading-copy"><h3>Atomic<br />Habits</h3><p>James Clear</p></div><img className="book-cover" src="https://covers.openlibrary.org/b/id/12539702-L.jpg" alt="Atomic Habits by James Clear book cover" /></article>;
 }
 
 function MapCard() {
-  return <article className="card map-card"><TinyLabel icon="⌖">Map</TinyLabel><div className="map-lines"><span className="road road-one" /><span className="road road-two" /><span className="road road-three" /><span className="map-pin">●</span><strong>the<br />internet</strong><small>somewhere online</small></div></article>;
+  return <article className="card map-card"><TinyLabel icon="⌖">Map</TinyLabel><div className="map-lines"><span className="map-pin">●</span><strong>Ho Chi Minh<br />City</strong><small>Vietnam · 10.7769° N, 106.7009° E</small></div></article>;
 }
 
 function PlayingCard() {
-  return <article className="card playing-card"><div className="photo-placeholder"><span>FUN<br />THINGS</span><i /></div><div className="photo-caption">✺ i love making stuff</div></article>;
+  return <article className="card playing-card"><div className="photo-placeholder"><span>PAST<br />PROJECTS</span><strong>curfew<br />pseudo-f1<br />p5-maker</strong><i /></div><div className="photo-caption">✺ things i've shipped</div></article>;
 }
 
 function WorkCard() {
