@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { createRoot } from 'react-dom/client';
 import './styles.css';
 
 const avatar = 'https://avatars.githubusercontent.com/u/76271634?v=4';
@@ -60,3 +61,5 @@ function App() {
 }
 
 export default App;
+
+createRoot(document.getElementById('root')).render(<App />);
