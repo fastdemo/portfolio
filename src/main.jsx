@@ -14,6 +14,7 @@ function PlayButton() {
     <button
       className="audio-button"
       aria-label="Open Salad Days by Mac DeMarco on Spotify"
+      title="Open Salad Days on Spotify"
       onClick={() => {
         window.open('https://open.spotify.com/search/Salad%20Days%20Mac%20DeMarco', '_blank', 'noopener,noreferrer');
         setOpened(true);
@@ -56,13 +57,20 @@ function PlayingCard() {
 
 function WorkCard() {
   const steps = ['Step 01', 'Step 02', 'Step 03', 'Step 04'];
-  return <article className="card work-card"><TinyLabel icon="▤">How i work</TinyLabel><div className="work-copy"><h3>01 Discovery Call</h3><p>We will make a 30 minutes free consultation so that I can get to learn about your specific needs and come up with a plan.</p></div><div className="steps">{steps.map((step, index) => <span className={index === 0 ? 'active' : ''} key={step}>{step}</span>)}</div></article>;
+  const copy = [
+    ['01 Discovery call', 'A short conversation to understand what you want to make and what a useful first version looks like.'],
+    ['02 Small plan', 'We trim the idea down to the clearest next step, then choose the simplest tools for it.'],
+    ['03 Make a thing', 'I turn the plan into a working prototype you can click, test, and react to.'],
+    ['04 Ship it', 'We tidy up the rough edges and get the useful version out into the world.'],
+  ];
+  const [activeStep, setActiveStep] = useState(0);
+  return <article className="card work-card"><TinyLabel icon="▤">How i work</TinyLabel><div className="work-copy"><h3>{copy[activeStep][0]}</h3><p>{copy[activeStep][1]}</p></div><div className="steps" role="tablist" aria-label="How the process works">{steps.map((step, index) => <button type="button" role="tab" aria-selected={activeStep === index} className={activeStep === index ? 'active' : ''} onClick={() => setActiveStep(index)} key={step}>{step}</button>)}</div></article>;
 }
 
 function App() {
   const [available, setAvailable] = useState(true);
-  return <div className="outside"><div className="page"><header className="site-header"><a className="site-url" href="#top">fastdemo.dev</a><nav><a href="#work">work</a><a href="#about">about</a><a href="https://github.com/fastdemo" target="_blank" rel="noreferrer">github ↗</a></nav></header>
-    <main id="top" className="content"><section className="intro"><img className="avatar" src={avatar} alt="fastdemo's GitHub avatar" /><h1>hey there, i'm fastdemo — i'm your average coder that makes <strong>fun things.</strong></h1><p className="bio">From apps to websites, I like making useful little things and seeing what happens when an idea gets to leave my head.</p><div className="intro-tools"><AudioCard /><button className={`status ${available ? 'is-available' : ''}`} onClick={() => setAvailable(!available)}><span />{available ? 'Available for fun' : 'Currently tinkering'}</button></div></section>
+  return <div className="outside"><div className="page"><header className="site-header"><a className="site-url" href="#top" aria-current="page">fastdemo.dev</a><nav aria-label="Primary navigation"><a href="#work">work</a><a href="#about">about</a><a href="https://github.com/fastdemo" target="_blank" rel="noreferrer">github ↗</a></nav></header>
+    <main id="top" className="content"><section className="intro" aria-labelledby="intro-heading"><img className="avatar" src={avatar} alt="fastdemo's GitHub avatar" /><h1 id="intro-heading">hey there, i'm fastdemo — i'm your average coder that makes <strong>fun things.</strong></h1><p className="bio">From apps to websites, I like making useful little things and seeing what happens when an idea gets to leave my head.</p><div className="intro-tools"><AudioCard /><button className={`status ${available ? 'is-available' : ''}`} aria-pressed={available} onClick={() => setAvailable(!available)}><span />{available ? 'Available for fun' : 'Currently tinkering'}</button></div></section>
       <section className="dashboard" id="work"><ExperienceCard /><ListeningCard /><ReadingCard /><MapCard /><PlayingCard /><WorkCard /></section>
       <section className="below" id="about"><h2>more things, less fuss.</h2><p>Explore the projects on <a href="https://github.com/fastdemo" target="_blank" rel="noreferrer">GitHub ↗</a> or say hello if you want to make something weird and useful.</p></section>
     </main><footer className="footer"><span>© 2026 fastdemo</span><span>built with curiosity</span></footer></div></div>;
