@@ -61,11 +61,11 @@ function WorkCard() {
 
 function App() {
   const [available, setAvailable] = useState(true);
-  return <div className="outside"><div className="browser"><div className="browser-bar"><span className="browser-url">fastdemo.github.io/portfolio</span></div><div className="page"><header className="site-header"><a className="site-url" href="#top">fastdemo.dev</a><nav><a href="#work">work</a><a href="#about">about</a><a href="https://github.com/fastdemo" target="_blank" rel="noreferrer">github ↗</a></nav></header>
+  return <div className="outside"><div className="page"><header className="site-header"><a className="site-url" href="#top">fastdemo.dev</a><nav><a href="#work">work</a><a href="#about">about</a><a href="https://github.com/fastdemo" target="_blank" rel="noreferrer">github ↗</a></nav></header>
     <main id="top" className="content"><section className="intro"><img className="avatar" src={avatar} alt="fastdemo's GitHub avatar" /><h1>hey there, i'm fastdemo — i'm your average coder that makes <strong>fun things.</strong></h1><p className="bio">From apps to websites, I like making useful little things and seeing what happens when an idea gets to leave my head.</p><div className="intro-tools"><AudioCard /><button className={`status ${available ? 'is-available' : ''}`} onClick={() => setAvailable(!available)}><span />{available ? 'Available for fun' : 'Currently tinkering'}</button></div></section>
       <section className="dashboard" id="work"><ExperienceCard /><ListeningCard /><ReadingCard /><MapCard /><PlayingCard /><WorkCard /></section>
       <section className="below" id="about"><h2>more things, less fuss.</h2><p>Explore the projects on <a href="https://github.com/fastdemo" target="_blank" rel="noreferrer">GitHub ↗</a> or say hello if you want to make something weird and useful.</p></section>
-    </main><footer className="footer"><span>© 2026 fastdemo</span><span>built with curiosity</span></footer></div></div></div>;
+    </main><footer className="footer"><span>© 2026 fastdemo</span><span>built with curiosity</span></footer></div></div>;
 }
 
 export default App;
