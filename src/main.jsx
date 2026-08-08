@@ -1,65 +1,70 @@
-import { useRef, useState } from 'react';
-import { createRoot } from 'react-dom/client';
+import { useState } from 'react';
 import './styles.css';
 
 const avatar = 'https://avatars.githubusercontent.com/u/76271634?v=4';
 
-const projects = [
-  { name: 'curfew', type: 'Chrome extension', description: 'A small, stubborn tool for blocking distractions and staying locked in.', tone: 'orange', href: 'https://github.com/fastdemo/curfew' },
-  { name: 'pseudo-f1', type: 'Retro racing game', description: 'A 16-bit pseudo-3D racing game with a little more chaos than a real track.', tone: 'blue', href: 'https://github.com/fastdemo/pseudo-f1' },
-  { name: 'p5-maker', type: 'Creative tool', description: 'A Persona-inspired text generator for when a blank page needs a personality.', tone: 'pink', href: 'https://github.com/fastdemo/p5-maker' },
-  { name: 'autobing', type: 'Browser automation', description: 'A lightweight experiment in making repetitive browser tasks less repetitive.', tone: 'green', href: 'https://github.com/fastdemo/autobing' },
-];
-
-function Label({ children }) { return <span className="label">{children}</span>; }
-function Panel({ children, className = '' }) { return <article className={`panel ${className}`}>{children}</article>; }
-
-function MusicPlayer() {
-  const audioRef = useRef(null);
-  const [playing, setPlaying] = useState(false);
-  const [message, setMessage] = useState('open in spotify');
-  function handlePlay() {
-    const source = audioRef.current?.querySelector('source')?.src;
-    if (source) {
-      if (playing) audioRef.current.pause(); else audioRef.current.play();
-      setPlaying(!playing);
-      return;
-    }
-    window.open('https://open.spotify.com/search/Salad%20Days%20Mac%20DeMarco', '_blank', 'noopener,noreferrer');
-    setMessage('spotify opened');
-  }
-  return <div className="music-player">
-    <button className="play-button" onClick={handlePlay} aria-label="Open Salad Days on Spotify"><span className="play-triangle" /></button>
-    <div className="track-copy"><span className="track-title">Salad Days</span><span className="track-artist">Mac DeMarco</span></div>
-    <div className="waveform" aria-hidden="true">{[18, 30, 12, 42, 24, 33, 17, 47, 26, 37, 20, 31, 14, 40, 22, 29, 16, 35, 21, 28, 13, 39, 23, 32].map((height, index) => <i style={{ height }} key={index} />)}</div>
-    <span className="track-time">02:41</span><span className="track-link">{message}</span><audio ref={audioRef} preload="none" />
-  </div>;
+function TinyLabel({ icon = '▣', children }) {
+  return <span className="tiny-label"><span>{icon}</span>{children}</span>;
 }
 
-function ProjectCard({ project }) {
-  return <a className={`project-card project-${project.tone}`} href={project.href} target="_blank" rel="noreferrer">
-    <div className="project-art" aria-hidden="true"><span>{project.name.slice(0, 1)}</span><span className="art-orbit" /></div>
-    <div className="project-content"><div className="project-meta"><span>{project.type}</span><span className="arrow">↗</span></div><h3>{project.name}</h3><p>{project.description}</p></div>
-  </a>;
+function PlayButton() {
+  const [opened, setOpened] = useState(false);
+  return (
+    <button
+      className="audio-button"
+      aria-label="Open Salad Days by Mac DeMarco on Spotify"
+      onClick={() => {
+        window.open('https://open.spotify.com/search/Salad%20Days%20Mac%20DeMarco', '_blank', 'noopener,noreferrer');
+        setOpened(true);
+      }}
+    >
+      <span className="triangle" />
+      {opened && <span className="sr-only">Spotify opened</span>}
+    </button>
+  );
+}
+
+function Waveform() {
+  const bars = [3, 4, 5, 12, 7, 16, 9, 22, 11, 8, 12, 29, 16, 38, 22, 13, 10, 5, 4, 8, 14, 18, 10, 6, 4, 7, 13, 20, 10, 6, 4, 3, 4, 5, 6, 7, 9, 8, 6, 4, 5, 9, 14, 24, 17, 9, 7, 4, 3, 4, 6, 9, 13, 11, 6, 4, 3, 4, 7, 10, 13, 12, 7, 4, 3, 4, 5, 8, 10, 12, 8, 5, 3, 4, 5, 6, 4, 3, 4, 5, 7, 5, 3, 4, 6, 9, 13, 10, 6, 3, 4, 5, 7, 4, 3, 4, 5, 8, 11, 8, 5, 3, 3, 4, 5, 6, 4, 3, 4, 6, 9, 7, 4, 3, 4, 5, 7, 5, 3, 4, 3, 4, 5, 4, 3, 4, 5, 6, 4, 3, 4, 5, 4, 3, 4, 5, 3, 4, 5, 3, 4, 3, 4, 3];
+  return <div className="waveform" aria-hidden="true">{bars.map((height, index) => <i style={{ height }} key={index} />)}</div>;
+}
+
+function AudioCard() {
+  return <div className="audio-card"><PlayButton /><div className="audio-line"><Waveform /></div><span className="audio-time">0:32</span></div>;
+}
+
+function ExperienceCard() {
+  return <article className="card experience-card"><TinyLabel icon="▣">Experience</TinyLabel><div className="experience-list"><div><b>now</b><span>building curfew &amp; autobing</span></div><div><b>2024</b><span>making things on the internet</span></div><div><b>2023</b><span>learning by shipping</span></div><div><b>2022</b><span>starting small experiments</span></div></div></article>;
+}
+
+function ListeningCard() {
+  return <article className="card listening-card"><TinyLabel icon="◉">What i'm listening</TinyLabel><div className="record"><div className="record-art"><strong>salad<br />days</strong><span>MAC<br />DEM ARCO</span></div><div className="record-info"><h3>Salad Days</h3><p>Mac DeMarco</p><div className="record-progress"><i /></div><div className="record-controls"><span>◀◀</span><b>Ⅱ</b><span>▶▶</span><span>⌁</span></div></div></div></article>;
+}
+
+function ReadingCard() {
+  return <article className="card reading-card"><TinyLabel icon="□">What i'm reading</TinyLabel><div className="reading-copy"><h3>The creative<br />coder's<br /><em>handbook</em></h3><p>small ideas, made real</p></div><div className="book-shape"><span>BUILD<br />THINGS</span></div></article>;
+}
+
+function MapCard() {
+  return <article className="card map-card"><TinyLabel icon="⌖">Map</TinyLabel><div className="map-lines"><span className="road road-one" /><span className="road road-two" /><span className="road road-three" /><span className="map-pin">●</span><strong>the<br />internet</strong><small>somewhere online</small></div></article>;
+}
+
+function PlayingCard() {
+  return <article className="card playing-card"><div className="photo-placeholder"><span>FUN<br />THINGS</span><i /></div><div className="photo-caption">✺ i love making stuff</div></article>;
+}
+
+function WorkCard() {
+  const steps = ['Step 01', 'Step 02', 'Step 03', 'Step 04'];
+  return <article className="card work-card"><TinyLabel icon="▤">How i work</TinyLabel><div className="work-copy"><h3>01 Discovery Call</h3><p>We will make a 30 minutes free consultation so that I can get to learn about your specific needs and come up with a plan.</p></div><div className="steps">{steps.map((step, index) => <span className={index === 0 ? 'active' : ''} key={step}>{step}</span>)}</div></article>;
 }
 
 function App() {
   const [available, setAvailable] = useState(true);
-  return <main>
-    <nav className="nav shell"><a className="wordmark" href="#top">fast<span>demo</span></a><div className="nav-links"><a href="#work">work</a><a href="#about">about</a><a href="https://github.com/fastdemo" target="_blank" rel="noreferrer">github ↗</a></div><a className="nav-contact" href="mailto:hello@fastdemo.dev">say hi <span>↗</span></a></nav>
-
-    <section className="hero shell" id="top"><div className="hero-copy"><img className="avatar" src={avatar} alt="fastdemo's GitHub avatar" /><h1>hey there, i'm fastdemo.<br /><em>i make fun things.</em></h1><p className="hero-intro">Your average coder that makes fun things, from apps to websites. Usually with too much coffee and not enough sleep.</p><div className="hero-actions"><MusicPlayer /><button className={`availability ${available ? 'available' : ''}`} onClick={() => setAvailable(!available)}><span className="status-dot" /> {available ? 'available for fun' : 'currently tinkering'}</button></div></div><div className="hero-instrument" aria-label="Current status panel"><div className="instrument-head"><Label>today's instruments</Label><span>01—04</span></div><div className="instrument-main"><span className="instrument-kicker">temperature</span><strong>24°</strong><div className="temperature-bar"><i /></div><span className="instrument-value">warm enough</span></div><div className="instrument-row"><span>mood</span><strong>curious</strong><div className="meter"><i style={{ width: '78%' }} /></div></div><div className="instrument-row"><span>focus</span><strong>ON</strong><div className="meter orange-meter"><i style={{ width: '61%' }} /></div></div><div className="instrument-foot"><span>building curfew &amp; autobing</span><span>— 2026</span></div></div></section>
-
-    <section className="ticker" aria-label="Interests"><div className="ticker-track"><span>apps</span><b>+</b><span>websites</span><b>+</b><span>games</span><b>+</b><span>weird little experiments</span><b>+</b><span>apps</span><b>+</b><span>websites</span><b>+</b></div></section>
-
-    <section className="work shell" id="work"><div className="section-heading"><div><Label>selected experiments</Label><h2>things i've made<br /><em>for the fun of it.</em></h2></div><p>Small projects, useful tools, and experiments that were too interesting to leave as a thought.</p></div><div className="project-grid">{projects.map((project) => <ProjectCard project={project} key={project.name} />)}</div></section>
-
-    <section className="about shell" id="about"><Panel className="timeline-panel"><div className="panel-top"><Label>the short version</Label><span>about.txt</span></div><div className="timeline-body"><div className="timeline-line" /><div><span className="timeline-year">now</span><h2>coder by day,<br /><em>vibecoder by night.</em></h2><p>I like turning half-formed ideas into things you can click, use, and send to a friend. This space is where I keep the good ones.</p></div></div></Panel><Panel className="location-panel"><Label>based somewhere online</Label><div className="map-grid"><span>37.7749° N</span><span>122.4194° W</span><b>the internet</b></div><div className="location-footer"><span>currently roaming</span><span>↗ github</span></div></Panel></section>
-
-    <footer className="footer shell"><div><span className="footer-mark">fd</span><p>made with curiosity<br />and a little bit of css.</p></div><a className="footer-cta" href="mailto:hello@fastdemo.dev"><span>have a fun idea?</span><strong>let's make it ↗</strong></a><div className="footer-bottom"><span>© 2026 fastdemo</span><span>built for the curious</span></div></footer>
-  </main>;
+  return <div className="outside"><div className="browser"><div className="browser-bar"><span className="browser-url">fastdemo.github.io/portfolio</span></div><div className="page"><header className="site-header"><a className="site-url" href="#top">fastdemo.dev</a><nav><a href="#work">work</a><a href="#about">about</a><a href="https://github.com/fastdemo" target="_blank" rel="noreferrer">github ↗</a></nav></header>
+    <main id="top" className="content"><section className="intro"><img className="avatar" src={avatar} alt="fastdemo's GitHub avatar" /><h1>hey there, i'm fastdemo — i'm your average coder that makes <strong>fun things.</strong></h1><p className="bio">From apps to websites, I like making useful little things and seeing what happens when an idea gets to leave my head.</p><div className="intro-tools"><AudioCard /><button className={`status ${available ? 'is-available' : ''}`} onClick={() => setAvailable(!available)}><span />{available ? 'Available for fun' : 'Currently tinkering'}</button></div></section>
+      <section className="dashboard" id="work"><ExperienceCard /><ListeningCard /><ReadingCard /><MapCard /><PlayingCard /><WorkCard /></section>
+      <section className="below" id="about"><h2>more things, less fuss.</h2><p>Explore the projects on <a href="https://github.com/fastdemo" target="_blank" rel="noreferrer">GitHub ↗</a> or say hello if you want to make something weird and useful.</p></section>
+    </main><footer className="footer"><span>© 2026 fastdemo</span><span>built with curiosity</span></footer></div></div></div>;
 }
 
 export default App;
-
-createRoot(document.getElementById('root')).render(<App />);
