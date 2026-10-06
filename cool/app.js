@@ -13,19 +13,8 @@ const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 const toast = m => { const t=$('#toast'); t.textContent=m; t.classList.add('show'); clearTimeout(t._x); t._x=setTimeout(()=>t.classList.remove('show'),2600); };
 
-/* ============ LOADER ============ */
-(() => {
-  const lines = ['> mounting /dev/brain ... OK','> loading caffeine levels ... 98%','> compiling aura ...','> fetching 6 repos from @fastdemo ...','> painting pixels lime ...','> <span class="ok">system ready. welcome, human.</span>'];
-  const log = $('#loader-log'), fill = $('#loader-fill'), pct = $('#loader-pct');
-  let i = 0, p = 0;
-  const iv = setInterval(() => {
-    p = Math.min(100, p + Math.random()*22);
-    pct.textContent = String(Math.floor(p)).padStart(2,'0');
-    fill.style.width = p + '%';
-    if (i < lines.length && p > (i+1)*(100/(lines.length+1))) { const d=document.createElement('div'); d.innerHTML=lines[i++]; log.appendChild(d); }
-    if (p >= 100) { clearInterval(iv); setTimeout(()=>{ $('#loader').classList.add('done'); document.body.classList.add('ready'); heroIntro(); }, 450); }
-  }, 220);
-})();
+/* ============ HERO INTRO (runs on load) ============ */
+heroIntro();
 
 /* ============ LENIS SMOOTH SCROLL ============ */
 let lenis = null;
@@ -163,7 +152,7 @@ $('#mode-toggle').addEventListener('click', () => {
     if(ci>=full.length){ html+=`<span class="${cls}">${full}</span>\n`; li++; ci=0; setTimeout(tick, 320); }
     else setTimeout(tick, 18+Math.random()*30);
   }
-  setTimeout(tick, 2600);
+  setTimeout(tick, 600);
 })();
 $('#terminal-btn').addEventListener('click',()=>{ $('#cli-in').focus(); $('#lab').scrollIntoView({behavior:'smooth'}); toast('terminal online — try "help"'); });
 

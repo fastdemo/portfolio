@@ -26,21 +26,6 @@ kbd{border:1px solid var(--line);border-radius:6px;padding:1px 7px;background:#1
 #cursor-ring.hovering{background:var(--lime)}
 @media(hover:none){body{cursor:auto}#cursor-dot,#cursor-ring{display:none}}
 
-/* loader */
-#loader{position:fixed;inset:0;background:#060607;z-index:5000;display:flex;align-items:center;justify-content:center;transition:opacity .6s,visibility .6s}
-#loader.done{opacity:0;visibility:hidden}
-.loader-inner{width:min(640px,90vw)}
-.loader-top{display:flex;justify-content:space-between;font-family:var(--font-m);font-size:.8rem;color:var(--dim);margin-bottom:14px}
-#loader-pct{color:var(--lime)}
-.loader-logo{font-family:var(--font-d);font-size:clamp(1.4rem,4.5vw,2.6rem);font-weight:900;letter-spacing:-.02em;margin-bottom:16px}
-.loader-logo span{color:var(--lime)} .blink{animation:blink 1s steps(2) infinite}
-@keyframes blink{50%{opacity:0}}
-.loader-bar{height:6px;background:#1c1c20;border-radius:99px;overflow:hidden;margin-bottom:12px}
-#loader-fill{height:100%;width:0;background:linear-gradient(90deg,var(--lime),var(--cyan))}
-.loader-log{font-family:var(--font-m);font-size:.72rem;color:var(--dim);height:66px;overflow:hidden}
-.loader-log div{margin:2px 0} .loader-log .ok{color:var(--lime)}
-.loader-cat{font-family:var(--font-m);color:#3d3d44;font-size:.7rem;margin-top:10px;white-space:pre}
-
 /* toast */
 #toast{position:fixed;bottom:26px;left:50%;transform:translate(-50%,120px);background:var(--lime);color:#000;font-family:var(--font-m);font-size:.8rem;font-weight:700;padding:12px 22px;border-radius:99px;z-index:4500;transition:transform .4s cubic-bezier(.2,1.4,.3,1)}
 #toast.show{transform:translate(-50%,0)}
