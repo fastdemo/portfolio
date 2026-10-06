@@ -6,8 +6,7 @@ housing all my portfolio drafts until i find a good one :3
 
 | path | what |
 | ---- | ---- |
-| `/` | redirect stub → `/nav/` |
-| `/nav/` | the navigation site (plain list of styles + per-style component breakdowns) |
+| `/` | the navigation site (plain list of styles + per-style component breakdowns) |
 | `/cool/` | style 01 — dark "build break fix" dev-os vibe (three.js hero, terminals, persona demo) |
 
 ## add a new style
@@ -21,6 +20,6 @@ housing all my portfolio drafts until i find a good one :3
 
 ```bash
 python3 -m http.server 8000
-# hub  → http://localhost:8000/nav/
+# hub  → http://localhost:8000/
 # cool → http://localhost:8000/cool/
 ```
