@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="coder">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>fastdemo — build, break & fix</title>
+<meta name="description" content="fastdemo (fastcode) — gamer by day, coder by night. Apps, websites, extensions, games. Build, break & fix." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23D4FF3F'/><text x='50' y='68' font-size='52' text-anchor='middle' font-family='monospace' font-weight='bold' fill='black'>F_</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&family=Unbounded:wght@500;700;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<script type="importmap">
+{ "imports": {
+  "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+}}
+</script>
+</head>
+<body>
+
+<!-- NOISE / PROGRESS / CURSOR -->
+<div class="noise"></div>
+<div class="scanlines"></div>
+<div id="progress"></div>
+<div id="cursor-dot"></div>
+<div id="cursor-ring"><span id="cursor-label"></span></div>
+
+<!-- PRELOADER -->
+<div id="loader">
+  <div class="loader-inner">
+    <div class="loader-top"><span>FASTDEMO.OS</span><span id="loader-pct">00</span></div>
+    <h1 class="loader-logo">BUILD<span>—</span>BREAK<span>—</span>FIX<span class="blink">_</span></h1>
+    <div class="loader-bar"><div id="loader-fill"></div></div>
+    <div class="loader-log" id="loader-log"><div>> mounting /dev/brain ...</div></div>
+    <pre class="loader-cat"> ／l、  (ﾟ､ ｡ ７  l  ~ヽ   じしf_,)ノ</pre>
+  </div>
+</div>
+
+<!-- BOOT TOAST -->
+<div id="toast"></div>
+
+<!-- NAV -->
+<header id="nav">
+  <a class="brand magnetic" href="#top" data-hover="top">
+    <span class="brand-mark">F_</span>
+    <span class="brand-text">fastdemo<small>©2026</small></span>
+  </a>
+  <nav class="nav-links">
+    <a href="../" data-hover="all styles">← styles</a>
+    <a href="#work" data-hover="work">work<sup>06</sup></a>
+    <a href="#about" data-hover="about">.whoami</a>
+    <a href="#stack" data-hover="stack">arsenal</a>
+    <a href="#lab" data-hover="lab">lab</a>
+    <a href="#contact" data-hover="contact">contact</a>
+  </nav>
+  <div class="nav-right">
+    <div class="status"><span class="dot"></span><span id="status-text">sleep deprived</span></div>
+    <div class="clock mono" id="clock">00:00:00</div>
+    <button id="mode-toggle" class="magnetic" data-hover="toggle mode" aria-label="toggle mode">
+      <span class="mode-track"><span class="mode-thumb"></span></span>
+      <span class="mode-label" id="mode-label">CODER / NIGHT</span>
+    </button>
+    <a class="btn small hires magnetic" href="#contact" data-hover="say hi">HIRE ME ↗</a>
+    <button id="menu-btn" aria-label="menu"><span></span><span></span></button>
+  </div>
+</header>
+<div id="mobile-menu">
+  <a href="#work">work<sup>06</sup></a>
+  <a href="#about">.whoami</a>
+  <a href="#stack">arsenal</a>
+  <a href="#lab">lab</a>
+  <a href="#contact">contact</a>
+</div>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <canvas id="webgl"></canvas>
+    <div class="hero-grid-bg"></div>
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="eyebrow reveal">
+          <span class="pulse"></span>
+          <span class="mono">gamer by day // coder by night :3</span>
+          <span class="mono dim hide-m">— v3.0 sleep-deprived build</span>
+        </div>
+        <h1 class="mega">
+          <span class="line reveal"><span>BUILD,</span></span>
+          <span class="line reveal"><span class="outline">BREAK</span> <span>&</span></span>
+          <span class="line reveal"><span>FIX<span class="lime">.</span></span><span class="inline-tag mono" id="spin-tag">REPEAT ↻</span></span>
+        </h1>
+        <p class="lede reveal">heyhey! i'm <strong>fastdemo</strong> <span class="dim">(aka fastcode)</span> — i build apps, websites & browser extensions that make my life easier <em>(and hopefully yours as well)</em>. then i break them. then i fix them better.</p>
+        <div class="cta-row reveal">
+          <a href="#work" class="btn primary magnetic" data-hover="view work">VIEW SELECTED WORK <span>↓</span></a>
+          <button class="btn ghost magnetic" id="terminal-btn" data-hover="run">▸ run: whoami.sh</button>
+        </div>
+        <div class="hero-stats reveal">
+          <div><b data-count="7">0</b><span>public repos</span></div>
+          <div><b data-count="8">0</b><span>languages</span></div>
+          <div><b data-count="33">0</b><span>stars given</span></div>
+          <div class="live"><b class="live-dot"></b><span>open to collab</span></div>
+        </div>
+      </div>
+
+      <div class="hero-right reveal">
+        <div class="terminal-card tilt" data-hover="drag me? no.">
+          <div class="term-bar"><i></i><i></i><i></i><span class="mono">fastdemo@void: ~/whoami.sh</span></div>
+          <div class="term-body mono" id="term-typing"></div>
+          <div class="term-profile">
+            <img src="https://avatars.githubusercontent.com/u/76271634?v=4" alt="fastdemo avatar" />
+            <div><b>@fastdemo</b><span>😴 sleep deprived</span></div>
+            <a href="https://github.com/fastdemo" target="_blank" rel="noopener" class="btn small">GITHUB ↗</a>
+          </div>
+        </div>
+        <div class="orbit-badge" aria-hidden="true">
+          <svg viewBox="0 0 200 200"><defs><path id="circ" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/></defs>
+          <text><textPath href="#circ">OPEN SOURCE • BUILD BREAK FIX • GAMER CODER • OPEN SOURCE •</textPath></text></svg>
+          <div class="orbit-center">:3</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-foot mono">
+      <span>SCROLL TO EXPLORE ↓</span>
+      <span class="hide-m">37.7749° N — SHIPPED FROM THE VOID</span>
+      <span id="fps">60 FPS</span>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker"><div class="ticker-track" id="ticker-track">
+    <span>BUILD ✦ BREAK ✦ FIX ✦ SHIP ✦ REPEAT ✦ BUILD ✦ BREAK ✦ FIX ✦ SHIP ✦ REPEAT ✦&nbsp;</span>
+    <span>BUILD ✦ BREAK ✦ FIX ✦ SHIP ✦ REPEAT ✦ BUILD ✦ BREAK ✦ FIX ✦ SHIP ✦ REPEAT ✦&nbsp;</span>
+  </div></div>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about" class="section">
+    <div class="sec-head">
+      <span class="mono tag">01 // .whoami</span>
+      <h2 data-reveal>sleep-deprived,<br /><span class="dim-i">dangerously curious.</span></h2>
+      <p class="mono dim" data-reveal>[ reading /dev/fastdemo ... OK ]</p>
+    </div>
+
+    <div class="bento">
+      <div class="card span2 glow" data-reveal data-hover="hello">
+        <div class="card-label mono">> heyhey.txt</div>
+        <p class="big">i'd like to <span class="hl">build, break & fix</span> things. making apps / websites / extensions that make <em>my</em> life easier — and hopefully yours as well.</p>
+        <pre class="ascii">$$$$$$\                       $$\                               
+$$  __$$\                      $$ |                              
+$$ /  \__|$$$$$$\   $$$$$$$\ $$$$$$\    $$$$$$$\                 
+$$$$\     \____$$\ $$  _____|\_$$  _|  $$  _____|  ／l、
+$$  _|    $$$$$$$ |\$$$$$$\    $$ |    $$ /      （ﾟ､ ｡ ７
+$$ |     $$  __$$ | \____$$\   $$ |$$\ $$ |       l  ~ヽ
+$$ |     \$$$$$$$ |$$$$$$$  |  \$$$$  |\$$$$$$$\   じしf_,)ノ</pre>
+      </div>
+      <div class="card" data-reveal data-hover="languages">
+        <div class="card-label mono">languages/</div>
+        <div class="chips">
+          <span>python</span><span>lua</span><span>c</span><span>typescript</span><span>javascript</span><span>swift</span><span>html</span><span>css</span>
+        </div>
+        <div class="meter"><div style="--w:92%"></div></div>
+        <p class="mono dim xs">polyglot. dangerous in 8 tongues.</p>
+      </div>
+      <div class="card" data-reveal data-hover="tools">
+        <div class="card-label mono">stuff i use_</div>
+        <div class="chips soft"><span>git</span><span>github</span><span>cli</span><span>vscode</span><span>codex</span><span>opencode</span><span>canva</span><span>capcut</span><span>davinci resolve</span></div>
+      </div>
+      <div class="card" data-reveal data-hover="makes">
+        <div class="card-label mono">stuff i make_</div>
+        <ul class="makes">
+          <li><b>apps</b><span>macOS / web</span></li>
+          <li><b>websites</b><span>minimal, fast</span></li>
+          <li><b>extensions</b><span>chrome / edge</span></li>
+          <li><b>games</b><span>& tools for them</span></li>
+          <li><b>graphics + video</b><span>design / edits</span></li>
+        </ul>
+      </div>
+      <div class="card status-card" data-reveal data-hover="status">
+        <div class="card-label mono">bio.status</div>
+        <div class="big-emoji">😴</div>
+        <p><b>sleep deprived</b><br /><span class="dim">gamer by day, coder by night :3</span></p>
+        <p class="mono xs dim">4 followers · 9 following · ∞ curiosity</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WORK ============ -->
+  <section id="work" class="section">
+    <div class="sec-head row">
+      <div>
+        <span class="mono tag">02 // selected work</span>
+        <h2 data-reveal>shipped from<br />the void<span class="lime">.</span></h2>
+      </div>
+      <div class="filters mono" data-reveal>
+        <button class="active" data-filter="all">all (6)</button>
+        <button data-filter="TypeScript">typescript</button>
+        <button data-filter="JavaScript">javascript</button>
+        <button data-filter="Swift">swift</button>
+      </div>
+    </div>
+    <div id="projects"></div>
+    <p class="mono dim center" data-reveal>★ live stars via github api — go touch grass, then star a repo. press <kbd>⌘K</kbd> to teleport.</p>
+  </section>
+
+  <!-- ============ STACK ============ -->
+  <section id="stack" class="section">
+    <div class="sec-head">
+      <span class="mono tag">03 // arsenal</span>
+      <h2 data-reveal>weapons of<br />mass creation<span class="lime">.</span></h2>
+    </div>
+    <div class="stack-grid">
+      <div class="stack-col" data-reveal>
+        <h3 class="mono">⌁ frontend</h3>
+        <div class="skill"><span>TypeScript / JS</span><div class="bar"><i style="--w:90%"></i></div></div>
+        <div class="skill"><span>HTML + CSS</span><div class="bar"><i style="--w:94%"></i></div></div>
+        <div class="skill"><span>React / web apps</span><div class="bar"><i style="--w:82%"></i></div></div>
+      </div>
+      <div class="stack-col" data-reveal>
+        <h3 class="mono">⌁ systems</h3>
+        <div class="skill"><span>Python</span><div class="bar"><i style="--w:88%"></i></div></div>
+        <div class="skill"><span>C / Lua</span><div class="bar"><i style="--w:74%"></i></div></div>
+        <div class="skill"><span>Swift (macOS)</span><div class="bar"><i style="--w:70%"></i></div></div>
+      </div>
+      <div class="stack-col" data-reveal>
+        <h3 class="mono">⌁ shipping</h3>
+        <div class="skill"><span>Browser extensions</span><div class="bar"><i style="--w:91%"></i></div></div>
+        <div class="skill"><span>Git / CLI / automation</span><div class="bar"><i style="--w:93%"></i></div></div>
+        <div class="skill"><span>Design + video</span><div class="bar"><i style="--w:80%"></i></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LAB ============ -->
+  <section id="lab" class="section">
+    <div class="sec-head">
+      <span class="mono tag">04 // the lab — try my stuff live</span>
+      <h2 data-reveal>don't take my word.<br /><span class="dim-i">touch it.</span></h2>
+    </div>
+    <div class="lab-grid">
+      <div class="card term-full" data-reveal>
+        <div class="card-label mono">◉ live terminal — type <b>help</b> <span class="dim">| try: whoami, ls, open aeri, sudo fix-sleep</span></div>
+        <div class="term-body mono" id="cli-out"></div>
+        <div class="cli-row mono"><span class="lime">fastdemo@void:~$</span><input id="cli-in" autocomplete="off" spellcheck="false" placeholder="type a command..." /></div>
+      </div>
+      <div class="card persona-demo" data-reveal data-hover="persona">
+        <div class="card-label mono">◉ persona dialogue maker — mini demo (from my repo)</div>
+        <div class="persona-box" id="persona-box">
+          <div class="persona-portrait" id="persona-face">🎭</div>
+          <div class="persona-text">
+            <div class="persona-name" id="persona-name">???</div>
+            <div id="persona-line">...</div>
+            <div class="persona-next">▼</div>
+          </div>
+        </div>
+        <div class="persona-controls mono">
+          <button data-say="morgana">morgana</button>
+          <button data-say="joker">joker</button>
+          <button data-say="fastdemo">fastdemo</button>
+          <button data-say="random">⚄ random</button>
+        </div>
+        <a class="mono xs dim" href="https://github.com/fastdemo/persona" target="_blank" rel="noopener">→ full project: github.com/fastdemo/persona</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROCESS ============ -->
+  <section class="section process">
+    <div class="sec-head"><span class="mono tag">05 // protocol</span></div>
+    <div class="steps">
+      <div data-reveal><span class="mono">01</span><h3>BUILD</h3><p>ship the smallest thing that works. extensions, apps, sites — fast.</p></div>
+      <div data-reveal><span class="mono">02</span><h3>BREAK</h3><p>stress it, abuse it, let users loose. every bug is tuition.</p></div>
+      <div data-reveal><span class="mono">03</span><h3>FIX</h3><p>patch it cleaner than before. automate what broke you.</p></div>
+      <div data-reveal><span class="mono">04</span><h3>REPEAT ↻</h3><p>new idea, new repo. the void hungers for v2.</p></div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" class="section contact">
+    <span class="mono tag" data-reveal>06 // transmission</span>
+    <h2 class="giant" data-reveal>LET'S BUILD<br />SOMETHING<br /><span class="outline">BROKEN</span> <span class="lime">—</span><br />THEN FIX IT.</h2>
+    <div class="contact-row" data-reveal>
+      <a class="btn primary big magnetic" href="https://github.com/fastdemo" target="_blank" rel="noopener" data-hover="github">GITHUB ↗</a>
+      <button class="btn ghost big magnetic" id="copy-email" data-hover="copy">COPY EMAIL ⧉</button>
+    </div>
+    <p class="mono dim" data-reveal>response time: faster than my sleep schedule · currently: <span class="lime">open to collab</span></p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="foot-inner mono">
+    <span>© 2026 fastdemo — build break fix repeat</span>
+    <span class="hide-m"><a href="../" style="text-decoration:underline">← all styles</a> · made with 😴 + caffeine + <span id="foot-stars">7</span> repos</span>
+    <span>↑ back to top</span>
+  </div>
+</footer>
+
+<!-- COMMAND PALETTE -->
+<div id="palette-bg"></div>
+<div id="palette">
+  <input id="palette-in" placeholder="type a command or search...   (esc to close)" autocomplete="off" />
+  <div id="palette-list"></div>
+  <div class="palette-foot mono">⌘K anywhere · ↑↓ navigate · ↵ teleport · try "cat rain"</div>
+</div>
+<div id="cat-layer"></div>
+
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script type="module" src="app.js"></script>
+</body>
+</html>
