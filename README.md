@@ -8,6 +8,7 @@ housing all my portfolio drafts until i find a good one :3
 | ---- | ---- |
 | `/` | the navigation site (plain list of styles + per-style component breakdowns) |
 | `/cool/` | style 01 — dark "build break fix" dev-os vibe (three.js hero, terminals, persona demo) |
+| `/minimal/` | style 02 — strict black & white minimalism (space grotesk, system theme, verbatim copy) |
 
 ## add a new style (one session = one style)
 
