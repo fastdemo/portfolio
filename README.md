@@ -9,12 +9,13 @@ housing all my portfolio drafts until i find a good one :3
 | `/` | the navigation site (plain list of styles + per-style component breakdowns) |
 | `/cool/` | style 01 — dark "build break fix" dev-os vibe (three.js hero, terminals, persona demo) |
 
-## add a new style
+## add a new style (one session = one style)
 
 1. create `/your-style/` with its own `index.html` (+ assets, self-contained, relative paths only)
-2. link back to the hub: `<a href="../nav/">← all styles</a>`
-3. add a `.style-block` entry in `nav/index.html` with a `<ul class="feat-grid">` component list
-4. commit + push to `main` → deploys automatically via github actions
+2. style `<head>`: title `portfolio repo / <name>`, favicon from the template in AGENTS.md, meta description
+3. link back to the hub: `<a href="../">← all styles</a>` (nav + footer)
+4. add a `.style-block` entry in hub `index.html` between the STYLES markers (description + component list)
+5. verify locally, commit + push to `main` → deploys automatically via github actions
 
 ## local preview
 
